@@ -1,0 +1,31 @@
+# 複製成 .dev.vars 再填值。.dev.vars 不會進版控。
+# 正式環境不是用這個檔案，是用 `npx wrangler secret put <名稱>` 逐一設定。
+
+# Developer Portal → 你的 App → Bot → Reset Token
+DISCORD_TOKEN=
+
+# Developer Portal → General Information → Public Key
+# 用來驗證請求真的來自 Discord，沒有這個誰都能假冒 Discord 打你的 Worker
+DISCORD_PUBLIC_KEY=
+
+# Developer Portal → General Information → Application ID
+DISCORD_APPLICATION_ID=
+
+# 測試伺服器 ID：註冊指令時填這個會立即生效
+# 留空則註冊為全域指令，Discord 端最多要等 1 小時
+DISCORD_GUILD_ID=
+
+# --- Google Service Account（讀取題庫試算表用，設定步驟見 docs/google-setup.md）---
+
+# 服務帳戶的 email，形如 xxx@專案id.iam.gserviceaccount.com。非機密。
+GOOGLE_SA_EMAIL=
+
+# 私鑰單行化的結果，由 scripts/prepare-google-key.mjs 產生。這是機密。
+GOOGLE_SA_PRIVATE_KEY=
+
+# 題庫試算表 ID。非機密（正式環境的值寫在 wrangler.jsonc 的 vars）。
+# 所有伺服器共用這一張，一個伺服器對應一個分頁。
+PROMPT_SPREADSHEET_ID=
+
+# 設為 1 才會開放 /_diag/google 診斷端點。只在本機開發用，正式環境不要設。
+ALLOW_DIAG=1

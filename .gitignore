@@ -1,0 +1,32 @@
+# 這份部署專屬的設定（試算表 ID、D1 database_id、Worker 名稱等）。
+# 範本是 wrangler.example.jsonc，複製後填自己的值。
+wrangler.jsonc
+
+# 機密：Bot Token 絕對不能進版控
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.env
+.env.*
+
+# Google Service Account 金鑰，等同密碼，絕對不能進版控
+*service-account*.json
+*service_account*.json
+gcp-*.json
+*-credentials.json
+
+# 相依套件
+node_modules/
+
+# Wrangler 本機狀態與快取（含本機 D1 資料庫）
+.wrangler/
+
+# Claude Code 的本機設定（含這台機器專屬路徑，不該共用）
+# 若日後要共用專案層級設定，放 .claude/settings.json 那份才進版控
+.claude/settings.local.json
+
+# 編輯器 / 系統
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,47 @@
+// 複製成 wrangler.jsonc 再填值。wrangler.jsonc 不進版控 ——
+// 裡面全是只屬於單一部署的識別碼。
+//
+// 完整步驟見 docs/SETUP.md。
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "dutu-bot",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-01",
+
+  // 部署後在 Cloudflare 儀表板可以看到即時日誌和錯誤
+  "observability": { "enabled": true },
+
+  // 每日清理超過保留期限的指令紀錄。
+  // Cron 走 UTC，18:00 UTC = 台灣時間凌晨 2 點，避開使用高峰。
+  "triggers": {
+    "crons": ["0 18 * * *"]
+  },
+
+  // 以下四個都不是機密：Public Key 的用途本來就是公開驗簽，
+  // 其餘三個沒有對應的私鑰也做不了任何事。
+  "vars": {
+    // Developer Portal → General Information
+    "DISCORD_APPLICATION_ID": "<<你的 Application ID>>",
+    "DISCORD_PUBLIC_KEY": "<<你的 Public Key>>",
+
+    // 服務帳戶的 email，形如 xxx@專案id.iam.gserviceaccount.com
+    "GOOGLE_SA_EMAIL": "<<email帳號>>",
+
+    // 人設試算表。所有伺服器共用這一張，一個伺服器對應一個分頁。
+    "PROMPT_SPREADSHEET_ID": "<<試算表id>>"
+  },
+
+  // 跑 `npx wrangler d1 create dutu-bot` 之後把印出來的 id 貼進來
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "dutu-bot",
+      "database_id": "<<執行 wrangler d1 create 後取得>>"
+    }
+  ]
+
+  // 機密只有兩個，用 secret 設定而不是寫在這裡：
+  //   npx wrangler secret put DISCORD_TOKEN
+  //   npx wrangler secret put GOOGLE_SA_PRIVATE_KEY
+  // 本機開發則寫在 .dev.vars（已被 .gitignore 擋掉）
+}

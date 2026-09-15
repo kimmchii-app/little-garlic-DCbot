@@ -1,0 +1,4 @@
+# 部署到 Linux 的檔案一律用 LF，否則 CRLF 會讓 shell script 和 systemd 服務檔壞掉
+* text=auto eol=lf
+*.sh text eol=lf
+*.service text eol=lf

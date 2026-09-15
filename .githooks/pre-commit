@@ -1,0 +1,6 @@
+#!/bin/sh
+# 提交前掃描金鑰。啟用方式：npm run hooks
+#
+# 放在 .githooks/ 而不是 .git/hooks/，是為了讓這個防護能跟著版控走 ——
+# 每個 clone 的人跑一次 npm run hooks 就有同樣的保護。
+exec node scripts/check-secrets.mjs

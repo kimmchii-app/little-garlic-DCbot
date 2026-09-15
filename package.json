@@ -1,0 +1,31 @@
+{
+  "name": "dutu-discord-bot",
+  "version": "0.2.0",
+  "description": "賭圖 Discord 機器人（Cloudflare Workers）",
+  "type": "module",
+  "main": "src/index.js",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "register": "node scripts/register-commands.js",
+    "check:google": "node scripts/check-google.mjs",
+    "servers": "node scripts/list-servers.mjs",
+    "hooks": "git config core.hooksPath .githooks",
+    "check:secrets": "node scripts/check-secrets.mjs",
+    "tail": "wrangler tail",
+    "db:init": "wrangler d1 execute DB --remote --file=schema.sql",
+    "db:init:local": "wrangler d1 execute DB --local --file=schema.sql"
+  },
+  "dependencies": {
+    "discord-interactions": "^4.1.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.20.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "workerd@1.20260908.1": true
+  }
+}
